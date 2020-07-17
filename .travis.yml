@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+# buld를 ./client 디렉토리에 생성
+before_install:
+  - docker build -t su/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run su/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t su/multi-client ./client
+  - docker build -t su/multi-nginx ./nginx
+  - docker build -t su/multi-server ./server
+  - docker build -t su/multi-worker ./worker
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push su/multi-client
+  - docker push su/multi-nginx
+  - docker push su/multi-server
+  - docker push su/multi-worker
