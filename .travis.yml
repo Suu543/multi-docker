@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 
-# buld를 ./client 디렉토리에 생성
+# bulid를 ./client 디렉토리에 생성
 before_install:
   - docker build -t su/react-test -f ./client/Dockerfile.dev ./client
 
