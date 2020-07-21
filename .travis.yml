@@ -28,8 +28,8 @@ deploy:
   region: ap-northeast-2
   app: multi-docker
   env: MultiDocker-env
-  bucket_name: elasticbeanstalk-ap-northeast-2-968686473441
-  bucket_path: docker-multi
+  bucket_name: multidocker
+  bucket_path: multi-docker
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
